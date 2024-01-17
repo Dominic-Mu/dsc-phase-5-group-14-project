@@ -1,0 +1,2 @@
+*.sav filter=lfs diff=lfs merge=lfs -text
+data/KEHR8BFL.SAV filter=lfs diff=lfs merge=lfs -text
