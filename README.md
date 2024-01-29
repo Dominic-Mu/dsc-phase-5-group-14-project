@@ -44,6 +44,12 @@ iii.	Evaluate the effectiveness of existing malaria control measures and recomme
 Clean and preprocess the KDHS-MIS dataset to handle missing values, and outliers, and ensure data quality.
 Explore the spatial and temporal dimensions of the data to identify patterns in malaria prevalence.
 
+#### Data Cleaning
+![Alt text](./images/image.png)
+#### Data Visualization
+![Alt text](./images/image2.png)
+![Alt text](./images/image1.png)
+
 ### b.	Feature Selection:
 
 Employ feature selection techniques to identify the most relevant variables influencing malaria prevalence.
