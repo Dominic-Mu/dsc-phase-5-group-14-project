@@ -45,8 +45,10 @@ Clean and preprocess the KDHS-MIS dataset to handle missing values, and outliers
 Explore the spatial and temporal dimensions of the data to identify patterns in malaria prevalence.
 
 #### Data Cleaning
+This involves, the handlig of missing data in the KDHS-MIS dataset and dropping irrelevant columns
 ![Alt text](./images/image.png)
 #### Data Visualization
+Is a powerful tool for exploring, analyzing, and communicating insights from datasets. From the KDHS-MIS, some of the visualization made:
 ![Alt text](./images/image2.png)
 ![Alt text](./images/image1.png)
 
