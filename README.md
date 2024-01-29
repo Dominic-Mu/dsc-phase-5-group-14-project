@@ -18,7 +18,7 @@ The Kenya Demographic and Health Survey (KDHS) is a nationally representative su
 
 
 The KDHS covers a broad range of topics, including fertility, family planning, maternal and child health, nutrition, malaria, HIV/AIDS, and other health-related issues. By employing rigorous sampling techniques, the survey ensures that the collected data is representative of the entire Kenyan population. Through face-to-face interviews and biomarker measurements, the KDHS captures not only self-reported information but also objective health indicators, enhancing the reliability and validity of the findings. This extensive dataset serves as a valuable resource for understanding health trends, identifying challenges, and formulating targeted interventions to improve the overall health and well-being of the Kenyan population.
-<img src="./images/dataml.jpg" align="right" width="350px" height="220px" alt="Idea" />
+<img src="./images/dataml.jpg" align="right" width="450px" height="320px" alt="Idea" />
 The survey results are crucial for monitoring progress towards health-related Sustainable Development Goals (SDGs) and informing policies and programs aimed at addressing public health challenges. Researchers and policymakers use KDHS data to analyze trends, identify disparities across regions and population groups, and tailor interventions to specific needs. The KDHS thus plays a pivotal role in shaping the health agenda in Kenya by providing a comprehensive and current snapshot of the health and demographic landscape, facilitating evidence-based decision-making for the benefit of public health initiatives and the overall well-being of the Kenyan population.
 
 
@@ -30,7 +30,7 @@ The problem at hand revolves around the underexplored potential of leveraging ma
 To address this gap, a structured methodology is proposed, encompassing comprehensive data preprocessing, robust feature selection techniques considering socio-economic, demographic, environmental, and health-related factors, and the development of predictive models using both supervised and unsupervised learning approaches. The proposed research emphasizes the importance of model evaluation, interpretability, and explainability to ensure the practical utility of ML findings for policymakers and public health practitioners. By integrating ML into the analysis of KDHS-MIS data, the research aims to contribute to evidence-based decision-making and enhance the effectiveness of malaria control strategies in Kenya, offering a transformative approach to understanding and combatting malaria in the region. The envisioned outcome is a more nuanced and actionable set of insights derived from ML, enabling targeted interventions and contributing to the broader goal of malaria control and prevention in Kenya.
 
 ## 1.3 Objectives
-
+<img src="./images/01.jpg" align="left" width="400px" height="320px" alt="Idea" />
 i.	Apply machine learning algorithms to analyze KDHS-MIS data and identify patterns, trends, and potential predictive factors associated with malaria prevalence.
 
 ii.	Develop predictive models for malaria occurrence, severity, and spatial distribution to aid in targeted intervention strategies.
@@ -40,7 +40,7 @@ iii.	Evaluate the effectiveness of existing malaria control measures and recomme
 ## 1.4	Methodology
 
 ### a.	Data Preprocessing:
-<img src="./images/01.jpg" align="left" width="350px" height="220px" alt="Idea" />
+
 
 Clean and preprocess the KDHS-MIS dataset to handle missing values, and outliers, and ensure data quality.
 Explore the spatial and temporal dimensions of the data to identify patterns in malaria prevalence.
