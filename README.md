@@ -30,10 +30,12 @@ The problem at hand revolves around the underexplored potential of leveraging ma
 To address this gap, a structured methodology is proposed, encompassing comprehensive data preprocessing, robust feature selection techniques considering socio-economic, demographic, environmental, and health-related factors, and the development of predictive models using both supervised and unsupervised learning approaches. The proposed research emphasizes the importance of model evaluation, interpretability, and explainability to ensure the practical utility of ML findings for policymakers and public health practitioners. By integrating ML into the analysis of KDHS-MIS data, the research aims to contribute to evidence-based decision-making and enhance the effectiveness of malaria control strategies in Kenya, offering a transformative approach to understanding and combatting malaria in the region. The envisioned outcome is a more nuanced and actionable set of insights derived from ML, enabling targeted interventions and contributing to the broader goal of malaria control and prevention in Kenya.
 
 ## 1.3 Objectives
-<img src="./images/01.jpg" align="left" width="400px" height="320px" alt="Idea" />
+<img src="./images/01.jpg" align="left" width="380px" height="280px" alt="Idea" />
 i.	Apply machine learning algorithms to analyze KDHS-MIS data and identify patterns, trends, and potential predictive factors associated with malaria prevalence.
 
+
 ii.	Develop predictive models for malaria occurrence, severity, and spatial distribution to aid in targeted intervention strategies.
+
 
 iii.	Evaluate the effectiveness of existing malaria control measures and recommend data-driven improvements
 
