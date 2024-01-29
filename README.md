@@ -7,7 +7,7 @@
 
 ## 1.0 Introduction
 
-<img src="https://media.giphy.com/media/XB9XIMyb3xhsEkI8Nv/giphy.gif" width="600px" height="450px" alt="Mosquitto"/>
+<img src="https://media.giphy.com/media/XB9XIMyb3xhsEkI8Nv/giphy.gif" width="700px" height="350px" alt="Mosquitto"/>
  
 Malaria continues to be a significant public health challenge in Kenya, with substantial efforts dedicated to its prevention and control. The Kenya Demographic and Health Survey's Malaria Indicator Survey (KDHS-MIS) provides a rich source of data that, when analyzed using advanced machine learning (ML) techniques, can offer valuable insights and enhance our understanding of malaria prevalence, risk factors, and intervention effectiveness.
 
