@@ -31,11 +31,11 @@ To address this gap, a structured methodology is proposed, encompassing comprehe
 
 ## 1.3 Objectives
 <img src="./images/01.jpg" align="right" width="380px" height="250px" alt="Idea" />
-i.	Apply machine learning algorithms to analyze KDHS-MIS data and identify patterns, trends, and potential predictive factors associated with malaria prevalence.
+i. Apply machine learning algorithms to analyze KMIS data and identify potential predictive factors associated with malaria prevalence.
 
-ii.	Develop predictive models for malaria occurrence, severity, and spatial distribution to aid in targeted intervention strategies.
+ii. To find out the top 5 counties with high malaria cases for enhanced intervention measures.
 
-iii.	Evaluate the effectiveness of existing malaria control measures and recommend data-driven improvements
+iii. To develop arobust machine learning model for malaria disease prediction with over 96% accuracy.
 
 ## 1.4	Methodology
 
