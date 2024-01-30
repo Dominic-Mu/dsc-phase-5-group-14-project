@@ -3,6 +3,51 @@ import streamlit as st
 import pickle
 from sklearn.ensemble import RandomForestClassifier
 
+
+
+# Load model
+def main():
+    st.set_page_config(
+        page_title="Malaria Prediction App",
+        page_icon="🦟",
+        layout="wide",
+        initial_sidebar_state="expanded"
+    )
+
+
+    # Define image paths for each page
+    home_image = "https://media.giphy.com/media/jofiBfcQjNmRgFjiHx/giphy.gif"
+    malaria_prediction = "./images/dataml.jpg"
+    about_us_image = "https://media.giphy.com/media/9yssegcqq1WDlPKdP4/giphy.gif"
+
+    # Create a sidebar for navigation
+    st.sidebar.title("Navigation Menu")
+    page = st.sidebar.radio("Go to", ["Home", "Malaria Prediction", "About Us"])
+
+    # Display the selected page
+    if page == "Home":
+        home_page(home_image)
+    elif page == "Malaria Prediction":
+        prediction(malaria_prediction)
+    elif page == "About Us":
+        about_us_page(about_us_image)
+
+# PAGE 1
+
+def home_page(image_path):
+    st.image(image_path, width=800)
+    st.title('Malaria Prevalence App')
+    st.markdown("""
+    ## Business Overview
+
+    The KDHS covers a broad range of topics, including fertility, family planning, maternal and child health, nutrition, malaria, HIV/AIDS, and other health-related issues.The survey results are crucial for monitoring progress towards health-related Sustainable Development Goals (SDGs) and informing policies and programs aimed at addressing public health challenges.
+
+    ## Problem Statement
+
+    To integrate Machine Learning techniques into the analysis of KDHS-MIS dataset. This research aims to contribute to evidence-based decision-making and enhance the effectiveness of malaria control strategies in Kenya, offering a transformative approach to understanding and combatting malaria in the different regions.
+    """, unsafe_allow_html=True)
+    
+# PAGE 2
 # Load the trained Random Forest model
 def load_lasso_model():
     with open('lasso_model.pkl', 'rb') as model_file:
@@ -44,7 +89,7 @@ def predict_malaria_infestation(model, user_inputs):
                          'usual_resident', 'own_electricity', 'sex', 'brand_of_net', 'owns_boat_wmotor',
                          'insecticide_treated_net', 'individual_file_pregnancy_status', 'member_own_car',
                          'result_of_household_interview', 'ever_married', 'household_hemoglobin_measurements',
-                         'slept_under_net', 'vivax_present', 'year_of_data_collection']  
+                         'slept_under_net', 'vivax_present', 'year_of_data_collection'] 
 
     X = pd.DataFrame([user_inputs], columns=selected_features)
     prediction_proba = model.predict_proba(X)[:, 1]  # Probability of class 1
@@ -60,17 +105,13 @@ def get_user_inputs(selected_features):
 
     return user_inputs
 
-# Set page title and favicon
-st.set_page_config(
-    page_title="Malaria Prediction App",
-    page_icon="🦟",
-    layout="wide",
-)
-
 # Main app
-def main():
+def prediction(malaria_prediction):
     st.title("Malaria Infestation Prediction App")
-
+    
+    # header image
+    # st.image(malaria_prediction, width=800)
+    
     # Load the trained Random Forest model
     lasso_model = load_lasso_model()
 
@@ -116,9 +157,14 @@ def main():
                          'usual_resident', 'own_electricity', 'sex', 'brand_of_net', 'owns_boat_wmotor',
                          'insecticide_treated_net', 'individual_file_pregnancy_status', 'member_own_car',
                          'result_of_household_interview', 'ever_married', 'household_hemoglobin_measurements',
-                         'slept_under_net', 'vivax_present', 'year_of_data_collection']  
-    user_inputs = get_user_inputs(selected_features)
+                         'slept_under_net', 'vivax_present', 'year_of_data_collection'] 
 
+
+    user_inputs = get_user_inputs(selected_features)
+# Check if user_inputs contains all features expected by the model
+    if len(user_inputs) != 115:
+        raise ValueError("Input data does not contain all features expected by the model.")
+    
     # Predict button
     if st.sidebar.button('Predict', key='predict_button'):
         with st.spinner('Predicting...'):
@@ -136,6 +182,31 @@ def main():
 
     # Additional content, if needed
     st.markdown("Feel free to add more content or explanations here.")
+    
+    
+    # PAGE 3
+def about_us_page(image_path):
+        st.image(image_path, width=800)
+        st.title('About Us')
+
+        st.subheader('Meet the Team')
+        st.write("""
+            We are The Group 14 Project students from DSC PartTime Moringa School course, working on our [Malaria Prevalence] Capstone Project.
+        """)
+
+        team_members = {
+        "Alpha Guya":"mailto:alpha.guya@student.moringaschool.com", 
+        "Ben Ochoro":"mailto:ben.ochoro@student.moringaschool.com", 
+        "Caleb Ochieng":"mailto:caleb.ochieng@student.moringaschool.com", 
+        "Christine Mukiri":"mailto:christine.mukiri@student.moringaschool.com", 
+        "Dominic Muli":"mailto:dominic.muli@student.moringaschool.com", 
+        "Frank Mandele":"mailto:frank.mandele@student.moringaschool.com", 
+        "Jacquiline Tulinye":"mailto:jacquiline.tulinye@student.moringaschool.com",
+        "Lesley Wanjiku":"mailto:lesley.wanjiku@student.moringaschool.com"
+    }
+
+        for name, link in team_members.items():
+            st.markdown(f"- [{name}]({link})")
 
 if __name__ == "__main__":
     main()
