@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+<body>
+    <h2>Input Form</h2>
+    <form method="POST" action="/predict">
+        <label for="number_of_children_resident">Number of Children Resident:</label>
+        <input type="text" name="number_of_children_resident" required><br>
+
+        <label for="county">County:</label>
+        <select name="county" required>
+            {% for code, name in county_options.items() %}
+                <option value="{{ code }}">{{ name }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="number_of_household_members">Number of Household Members:</label>
+        <input type="text" name="number_of_household_members" required><br>
+
+        <label for="falciparum_present">Falciparum Present:</label>
+        <select name="falciparum_present" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
