@@ -1,16 +1,48 @@
 import os
 import warnings
+
+# Disable resource variables and filter warnings (optional)
 os.environ['TF_DISABLE_RESOURCE_VARIABLES'] = '1'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 warnings.filterwarnings("ignore", category=FutureWarning, module="tensorflow")
+
 import tensorflow as tf
+
+# Ensure compatibility with TF1 (if necessary)
 tf.compat.v1.disable_v2_behavior()
+
 from flask import Flask, render_template, request
 import json
 import numpy as np
 from tensorflow.keras.models import model_from_json
 
 app = Flask(__name__)
+
+# Global model and graph (share across requests)
+loaded_model = None
+graph = None
+
+# Load the model and graph once at startup
+def load_model_and_graph():
+    global loaded_model, graph
+
+    # Load model architecture
+    with open("model.json", "r") as json_file:
+        loaded_model_json = json_file.read()
+    loaded_model = model_from_json(loaded_model_json)
+
+    # Load model weights
+    loaded_model.load_weights("model_weights.h5")
+
+    # Set the global graph
+    graph = tf.compat.v1.get_default_graph()
+
+    # Initialize the model within the graph context
+    with graph.as_default():
+        loaded_model.predict(np.zeros((1, 115)))
+
+# Load model and graph at startup
+load_model_and_graph()
 
 # Loading the model architecture from JSON file
 try:
@@ -28,6 +60,11 @@ try:
     # Loading the county options from the JSON file
     with open('county_options.json', 'r') as json_file:
         county_options = json.load(json_file)
+
+    # Explicitly set TensorFlow session and graph for the loaded model
+    graph = tf.compat.v1.get_default_graph()
+    with graph.as_default():
+        loaded_model.predict(np.zeros((1, 115)))  # Initialize the model within the graph context
 
 except Exception as e:
     raise RuntimeError("Error loading the model: {}".format(str(e)))
@@ -83,8 +120,9 @@ def predict():
         # Preprocessing the input data
         input_data = preprocess_input(form_data)
 
-        # Making predictions
-        predictions = loaded_model.predict(input_data)
+        # Making predictions using the explicitly set TensorFlow session and graph
+        with graph.as_default():
+            predictions = loaded_model.predict(input_data)
 
         # Extracting probability from predictions
         probability = predictions[0][0]
@@ -99,4 +137,4 @@ def predict():
         return str(e)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, threaded=True)
