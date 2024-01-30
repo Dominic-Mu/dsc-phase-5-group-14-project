@@ -1,30 +1,29 @@
 import os
 import warnings
+import json
+import numpy as np
+from flask import Flask, render_template, request
+from tensorflow.keras.models import model_from_json, Model
+from tensorflow.keras.layers import Input
+import tensorflow as tf
 
 # Disable resource variables and filter warnings (optional)
 os.environ['TF_DISABLE_RESOURCE_VARIABLES'] = '1'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 warnings.filterwarnings("ignore", category=FutureWarning, module="tensorflow")
 
-import tensorflow as tf
-
-# Ensure compatibility with TF1 (if necessary)
-tf.compat.v1.disable_v2_behavior()
-
-from flask import Flask, render_template, request
-import json
-import numpy as np
-from tensorflow.keras.models import model_from_json
-
+# Disable eager execution (ensure graph mode)
+tf.compat.v1.disable_eager_execution()
 app = Flask(__name__)
 
 # Global model and graph (share across requests)
 loaded_model = None
 graph = None
+new_model = None  # Initialize new_model globally
 
 # Load the model and graph once at startup
 def load_model_and_graph():
-    global loaded_model, graph
+    global loaded_model, graph, new_model
 
     # Load model architecture
     with open("model.json", "r") as json_file:
@@ -41,9 +40,22 @@ def load_model_and_graph():
     with graph.as_default():
         loaded_model.predict(np.zeros((1, 115)))
 
+    # Create the subset model after loading the original model
+    selected_features = ["county", "number_of_household_members", "falciparum_present", "number_of_children_resident"]  # Adjust features as needed
+    input_subset = Input(shape=(len(selected_features),))
+
+    # Extract relevant layers (assuming they are the first 2 layers)
+    shared_layers = loaded_model.layers[0:2]
+
+    # Connect the subset input to the extracted layers
+    output = shared_layers(input_subset)
+    new_model = Model(inputs=input_subset, outputs=output)
+
+    # Set subset model's weights
+    new_model.set_weights([layer.get_weights() for layer in shared_layers])
+
 # Load model and graph at startup
 load_model_and_graph()
-
 # Loading the model architecture from JSON file
 try:
     with open("model.json", "r") as json_file:
@@ -64,7 +76,7 @@ try:
     # Explicitly set TensorFlow session and graph for the loaded model
     graph = tf.compat.v1.get_default_graph()
     with graph.as_default():
-        loaded_model.predict(np.zeros((1, 115)))  # Initialize the model within the graph context
+        loaded_model.predict(np.zeros((1, 4)))  # Initialize the model within the graph context
 
 except Exception as e:
     raise RuntimeError("Error loading the model: {}".format(str(e)))
@@ -122,7 +134,7 @@ def predict():
 
         # Making predictions using the explicitly set TensorFlow session and graph
         with graph.as_default():
-            predictions = loaded_model.predict(input_data)
+            predictions = new_model.predict(input_data)
 
         # Extracting probability from predictions
         probability = predictions[0][0]
