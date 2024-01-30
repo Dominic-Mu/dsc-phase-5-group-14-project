@@ -12,61 +12,61 @@ from tensorflow.keras.models import model_from_json
 
 app = Flask(__name__)
 
-# Load the model architecture from JSON file
+# Loading the model architecture from JSON file
 try:
     with open("model.json", "r") as json_file:
         loaded_model_json = json_file.read()
     loaded_model = model_from_json(loaded_model_json)
 
-    # Load the model weights from the HDF5 file
+    # Loading the model weights from the HDF5 file
     loaded_model.load_weights("model_weights.h5")
 
-    # Load the feature scaling parameters
+    # Loading the feature scaling parameters
     with open("scaling_params.json", "r") as json_file:
         scaling_params = json.load(json_file)
 
-    # Load the county options from the JSON file
+    # Loading the county options from the JSON file
     with open('county_options.json', 'r') as json_file:
         county_options = json.load(json_file)
 
 except Exception as e:
     raise RuntimeError("Error loading the model: {}".format(str(e)))
 
+# Function to get county name from numerical value
+def get_county_name(value):
+    for numerical_value, county_name in county_options.items():
+        if numerical_value == str(value):
+            return county_name
+    return 0  # Return 0 if the value is not found
+
 # Function to preprocess input data
 def preprocess_input(data):
-    # Assuming data is a dictionary with feature names as keys
-    selected_numerical_features = ["feature1", "feature2", "feature3", "feature4"]
+    selected_features = ["county", "number_of_household_members", "falciparum_present", "number_of_children_resident"]
     binary_features = ["falciparum_present"]
 
-    # Select numerical features
-    numerical_values = [float(data[feature]) for feature in selected_numerical_features]
+    # Extracting numerical features
+    numerical_values = [float(data[feature]) if feature != "county" and feature != "falciparum_present" else 1 if feature == "falciparum_present" and data[feature] == "yes" else 0 for feature in selected_features[1:]]  # Exclude "county" from numerical features
 
-    # Select categorical features and convert to one-hot encoding
-    county_code = int(data["county"])
-    num_counties = len(county_options)
+    # Get the numerical value for "Nairobi" from county_options
+    county_value = county_options.get(str(data["county"]), 0)  # Default to 0 if the county is not found
 
-    # Initialize an array of zeros for one-hot encoding
-    categorical_values = np.zeros(num_counties)
+    # Get the county name based on the numerical value or return 0 if not found
+    county_name = get_county_name(county_value)
+    numerical_values.append(float(county_name) if county_name != 0 else 0)
 
-    # Find the index of the county in the one-hot encoded array
-    county_index = list(county_options.keys()).index(str(county_code))
+    # Pad with zeros to match the expected input shape
+    missing_features = np.zeros(111)  # Assuming the total number of features is 115
+    input_data = np.concatenate([missing_features, numerical_values])
 
-    # Set the corresponding entry to 1 for the selected county
-    categorical_values[county_index] = 1
-
-    # Combine numerical and categorical values
-    input_data = np.concatenate([numerical_values, categorical_values], dtype=float)
-
-    # Add binary features
-    for feature in binary_features:
-        input_data = np.append(input_data, [1 if data[feature] == "yes" else 0])
-
+    # Reshaping input_data for model compatibility
     input_data = input_data.reshape(1, -1)
 
-    # Apply feature scaling
-    input_data_scaled = (input_data - np.array(scaling_params["mean"])) / np.array(scaling_params["scale"])
-
-    return input_data_scaled
+    # Applying feature scaling if necessary
+    if "scaling_params" in globals() and "mean" in scaling_params and "scale" in scaling_params:
+        input_data_scaled = (input_data - np.array(scaling_params["mean"])) / np.array(scaling_params["scale"])
+        return input_data_scaled
+    else:
+        return input_data
 
 # Route to render the form
 @app.route('/')
@@ -77,16 +77,16 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Get the form data
+        # Getting the form data
         form_data = request.form.to_dict()
 
-        # Preprocess the input data
+        # Preprocessing the input data
         input_data = preprocess_input(form_data)
 
-        # Make predictions
+        # Making predictions
         predictions = loaded_model.predict(input_data)
 
-        # Extract probability from predictions
+        # Extracting probability from predictions
         probability = predictions[0][0]
 
         # Threshold for binary classification
