@@ -40,27 +40,20 @@ Clean and preprocess the KMIS dataset to handle missing values, and outliers, an
 Explore the temporal dimensions of the data to identify patterns in malaria prevalence.
 
 ### b.	Feature Selection:
-Employ feature selection techniques to identify the most relevant variables influencing malaria prevalence.
+Employed feature selection techniques to identify the most relevant variables influencing malaria prevalence.
 Consider socio-economic, demographic, environmental, and health-related factors as potential predictors.
 
 ### c.	Model Development:
-Utilize supervised learning algorithms (Logistic Regression and Random Forest) to build predictive models for malaria prevalence.
+Utilized supervised learning algorithms (Logistic Regression and Random Forest) to build predictive models for malaria prevalence.
 
-Implement unsupervised learning techniques (e.g., clustering) to identify groups with similar malaria risk profiles.
 
 ### d.	Model Evaluation:
-Assess the performance of the developed models using appropriate metrics such as accuracy, sensitivity, specificity, and area under the ROC curve.
-Implement cross-validation to ensure the generalizability of the models.
+We assessed the performance of the developed models using appropriate metrics such as accuracy, sensitivity, specificity, and area under the ROC curve.
 
 ### e.	Interpretability and Explainability:
-The model gives is able to predict malaria, which is a good to offer utility to policymakers in the health space and  health practitioners given it had the following metrics which are dependable:
+The model is able to predict malaria, which is a good to offer utility to policymakers in the health space and  health practitioners given it had the following metrics which are dependable by virtue of a confussion matrix:
 
-i. Accuracy (0.9654):
-
-Accuracy is the ratio of correctly predicted instances to the total instances.
-An accuracy of 0.9654 indicates that the model is correct in its predictions about 96.54% of the time.
-
-ii. Confusion Matrix:
+#### Confusion Matrix:
 
 A confusion matrix shows the true positive (TP), true negative (TN), false positive (FP), and false negative (FN) values.
 In this case: a). 1435 instances are correctly predicted as class 0.
@@ -68,13 +61,18 @@ In this case: a). 1435 instances are correctly predicted as class 0.
               c). 43 instances of class 1 are incorrectly predicted as class 0 (false negatives).
               d). 12 instances of class 0 are incorrectly predicted as class 1 (false positives).
 
-iii. Classification Report:
+i. Accuracy (0.9654):
+
+Accuracy is the ratio of correctly predicted instances to the total instances.
+An accuracy of 0.9654 indicates that the model is correct in its predictions about 96.54% of the time.
+
+ii. Classification Report:
 
      a). The precision for class 0 is high (0.97), indicating that when the model predicts class 0, it's correct 97% of the time.
      b). The recall for class 1 is lower (0.70), indicating that the model is capturing only 70% of the actual instances of class 1.
      c). The weighted average F1-score is 0.96, indicating a good balance between precision and recall across both classes.
 
-Iiv. Macro and Weighted Averages:
+iii. Macro and Weighted Averages:
 
 The macro average gives equal weight to each class.
 
@@ -84,9 +82,9 @@ In our case, the macro avg F1-score (0.88) and the weighted avg F1-score (0.96) 
 
 ## 1.5	Conclussion:
 
-*1. MCC value of 0.7742 indicates strong overall model performance, taking into account both false positives and false negatives. This metric is particularly useful in situations where there is class imbalance or where the consequences of different types of errors vary.*
+*1. MCC value of 0.7794 indicates strong overall model performance, taking into account both false positives and false negatives. This metric is particularly useful in situations where there is class imbalance or where the consequences of different types of errors vary.*
 
-*2. An AUC-PR of 82.78% is relatively high and suggests that the model is able to balance precision and recall well. It signifies that the model has a good ability to correctly classify positive instances while minimizing false positives and false negatives.*
+*2. An AUC-PR of 81.86% is relatively high and suggests that the model is able to balance precision and recall well. It signifies that the model has a good ability to correctly classify positive instances while minimizing false positives and false negatives.*
 
 ## 1.6	Recommendations:
 
