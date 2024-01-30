@@ -15,12 +15,12 @@ def main():
 
 
     # Define image paths for each page
-    home_image = "../images/01.jpg"
+    home_image = "https://media.giphy.com/media/jofiBfcQjNmRgFjiHx/giphy.gif"
     malaria_prediction = "../images/dataml.jpg"
-    about_us_image = "../images/01.jpg"
+    about_us_image = "https://media.giphy.com/media/9yssegcqq1WDlPKdP4/giphy.gif"
 
     # Create a sidebar for navigation
-    st.sidebar.title("Navigation")
+    st.sidebar.title("Navigation Menu")
     page = st.sidebar.radio("Go to", ["Home", "Malaria Prediction", "About Us"])
 
     # Display the selected page
@@ -59,7 +59,7 @@ def predict_malaria_infestation(user_inputs):
 
 
 def prediction(image_path):
-    st.image(image_path, width=800)
+    # st.image(image_path, width=800)
     st.title("Malaria Prevalence App")
 
     # Streamlit app layout
@@ -71,19 +71,19 @@ def prediction(image_path):
 
     
     # Sidebar with user input fields
-    st.sidebar.header('User Input Features')
+    st.header('User Input Features')
 
     # Create input fields for each selected feature
     user_inputs = {}
     selected_features = ['number_of_household_members', 'number_of_children_resident', 'region_of_residence']
     for feature in selected_features:
-        user_inputs[feature] = st.sidebar.number_input(feature, min_value=0, max_value=100, value=0)
+        user_inputs[feature] = st.number_input(feature, min_value=0, max_value=100, value=0)
         
     
-    st.sidebar.selectbox('Select a Region', ['red','orange','green','blue','violet'])
+    st.selectbox('Select a Region', ['red','orange','green','blue','violet'])
 
     # Predict button
-    if st.sidebar.button('Predict'):
+    if st.button('Predict'):
             with st.spinner('Predicting...'):
             # Convert user input to DataFrame
                 user_data = pd.DataFrame([user_inputs])
