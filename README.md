@@ -7,7 +7,7 @@
 
 ## 1.0 Introduction
  
-Malaria continues to be a significant public health challenge in Kenya, with substantial efforts dedicated to its prevention and control. The Kenya Demographic and Health Survey's Malaria Indicator Survey (KDHS-MIS) provides a rich source of data that, when analyzed using advanced machine learning (ML) techniques, can offer valuable insights and enhance our understanding of malaria prevalence, risk factors, and intervention effectiveness.
+Malaria continues to be a significant public health challenge in Kenya, with substantial efforts dedicated to its prevention and control. The Kenya Demographic and Health Survey's Malaria Indicator Survey (DHS-KMIS) provides a rich source of data that, when analyzed using advanced machine learning (ML) techniques, can offer valuable insights and enhance our understanding of malaria prevalence, risk factors, and intervention effectiveness.
 
 ## 1.1 Overview of KDHS
 
@@ -26,25 +26,26 @@ To address this gap, a structured methodology is proposed, encompassing comprehe
 
 ## 1.3 Objectives
 
-i.	Apply machine learning algorithms to analyze KDHS-MIS data and identify patterns, trends, and potential predictive factors associated with malaria prevalence.
+i.	Apply machine learning algorithms to analyze KMIS data and identify potential predictive factors associated with malaria prevalence.
 
-ii.	Develop predictive models for malaria occurrence, severity, and spatial distribution to aid in targeted intervention strategies.
+ii.	To find out the top 5 counties with high malaria cases for enhanced intervention measures.
 
-iii.	Evaluate the effectiveness of existing malaria control measures and recommend data-driven improvements
+iii. To develop arobust machine learning model for malaria disease prediction with over 96% accuracy.
 
 ## 1.4	Methodology
 
 ### a.	Data Preprocessing:
 
-Clean and preprocess the KDHS-MIS dataset to handle missing values, and outliers, and ensure data quality.
-Explore the spatial and temporal dimensions of the data to identify patterns in malaria prevalence.
+Clean and preprocess the KMIS dataset to handle missing values, and outliers, and ensure data quality.
+Explore the temporal dimensions of the data to identify patterns in malaria prevalence.
 
 ### b.	Feature Selection:
 Employ feature selection techniques to identify the most relevant variables influencing malaria prevalence.
 Consider socio-economic, demographic, environmental, and health-related factors as potential predictors.
 
 ### c.	Model Development:
-Utilize supervised learning algorithms (e.g., Random Forest, Gradient Boosting) to build predictive models for malaria prevalence.
+Utilize supervised learning algorithms (Logistic Regression and Random Forest) to build predictive models for malaria prevalence.
+
 Implement unsupervised learning techniques (e.g., clustering) to identify groups with similar malaria risk profiles.
 
 ### d.	Model Evaluation:
@@ -52,16 +53,49 @@ Assess the performance of the developed models using appropriate metrics such as
 Implement cross-validation to ensure the generalizability of the models.
 
 ### e.	Interpretability and Explainability:
-Emphasize the interpretability of the developed models to enhance their utility for policymakers and public health practitioners.
-Provide insights into the key factors influencing malaria prevalence and their relative importance.
+The model gives is able to predict malaria, which is a good to offer utility to policymakers in the health space and  health practitioners given it had the following metrics which are dependable:
 
-## 1.5	Recommendations:
-Derive actionable recommendations for policymakers and healthcare professionals based on the ML findings.
-Propose targeted interventions and strategies to reduce malaria prevalence and improve the effectiveness of existing control measures.
+i. Accuracy (0.9654):
 
-## 1.6 	Conclusion:
-Summarize the potential impact of leveraging machine learning on enhancing insights from KDHS-MIS data for malaria control and prevention in Kenya.
-By integrating machine learning into the analysis of KDHS-MIS data, this proposal aims to contribute to evidence-based decision-making and improve the effectiveness of malaria control strategies in Kenya.
+Accuracy is the ratio of correctly predicted instances to the total instances.
+An accuracy of 0.9654 indicates that the model is correct in its predictions about 96.54% of the time.
+
+ii. Confusion Matrix:
+
+A confusion matrix shows the true positive (TP), true negative (TN), false positive (FP), and false negative (FN) values.
+In this case: a). 1435 instances are correctly predicted as class 0.
+              b). 101 instances are correctly predicted as class 1.
+              c). 43 instances of class 1 are incorrectly predicted as class 0 (false negatives).
+              d). 12 instances of class 0 are incorrectly predicted as class 1 (false positives).
+
+iii. Classification Report:
+
+     a). The precision for class 0 is high (0.97), indicating that when the model predicts class 0, it's correct 97% of the time.
+     b). The recall for class 1 is lower (0.70), indicating that the model is capturing only 70% of the actual instances of class 1.
+     c). The weighted average F1-score is 0.96, indicating a good balance between precision and recall across both classes.
+
+Iiv. Macro and Weighted Averages:
+
+The macro average gives equal weight to each class.
+
+The weighted average considers the number of instances of each class.
+
+In our case, the macro avg F1-score (0.88) and the weighted avg F1-score (0.96) are close, indicating a relatively balanced performance across classes.
+
+## 1.5	Conclussion:
+
+*1. MCC value of 0.7742 indicates strong overall model performance, taking into account both false positives and false negatives. This metric is particularly useful in situations where there is class imbalance or where the consequences of different types of errors vary.*
+
+*2. An AUC-PR of 82.78% is relatively high and suggests that the model is able to balance precision and recall well. It signifies that the model has a good ability to correctly classify positive instances while minimizing false positives and false negatives.*
+
+## 1.6	Recommendations:
+
+The model can be better improved by use of hyperparameter tunning on large dataset to predict the risk of malaria prevalence and inturn inform where malaria control strategies need to be further enhanced to reduce the burden of malaria disease.
+
+The model informes where and when to propose targeted interventions and strategies to reduce malaria prevalence and improve the effectiveness of existing control measures.
+
+###### Try out our model on your data!
+
 
 See the full analysis in the [Jupyter Notebook](./KDHS_MIS.ipynb) or review this [presentation](./index.pdf).
 
